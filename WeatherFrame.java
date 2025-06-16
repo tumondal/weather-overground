@@ -5,6 +5,7 @@ import model.WeatherData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class WeatherFrame extends JFrame {
 
@@ -27,6 +28,7 @@ public class WeatherFrame extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15)); //padding
+        System.out.println(panel.getBackground());
 
 
         JTextField cityInput = new JTextField(15);
@@ -41,7 +43,6 @@ public class WeatherFrame extends JFrame {
         JLabel titleLabel = new JLabel("Weather Overground");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
 
         cityInput.setAlignmentX(Component.CENTER_ALIGNMENT);
         cityInput.setHorizontalAlignment(JTextField.CENTER);
@@ -58,9 +59,11 @@ public class WeatherFrame extends JFrame {
         timeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        ArrayList<JLabel> labels = new ArrayList<JLabel>();
 
         panel.add(titleLabel);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        labels.add(titleLabel);
 
         panel.add(cityInput);
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -70,21 +73,21 @@ public class WeatherFrame extends JFrame {
 
         panel.add(tempLabel);
         panel.add(Box.createRigidArea(new Dimension(0, 5)));
+        labels.add(tempLabel);
 
         panel.add(weatherLabel);
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        labels.add(weatherLabel);
 
         panel.add(windLabel);
         panel.add(Box.createRigidArea(new Dimension(0, 5)));
+        labels.add(windLabel);
 
         panel.add(timeLabel);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        labels.add(timeLabel);
 
         panel.add(errorLabel);
-
-
-
-
 
         searchButton.addActionListener(e -> {
             System.out.println("Button was clicked!");
@@ -92,6 +95,7 @@ public class WeatherFrame extends JFrame {
             if (city.isEmpty()) {
                 errorLabel.setText("Please enter a city name!");
                 tempLabel.setText("");
+                weatherLabel.setText("");
                 windLabel.setText("");
                 timeLabel.setText("");
                 return;
@@ -105,6 +109,7 @@ public class WeatherFrame extends JFrame {
             if (coordinates == null) {
                 errorLabel.setText("City not found!");
                 tempLabel.setText("");
+                weatherLabel.setText("");
                 windLabel.setText("");
                 timeLabel.setText("");
                 return;
@@ -123,6 +128,17 @@ public class WeatherFrame extends JFrame {
                 weatherLabel.setText(data.current_weather.convertWeatherCode());
                 windLabel.setText("Wind Speed: " + data.current_weather.windspeed + " km/h");
                 timeLabel.setText("Time: " + data.getTime());
+                if (data.current_weather.is_day == 0) {
+                    panel.setBackground(Color.DARK_GRAY);
+                    for (int i=0; i<labels.size(); i++){
+                        labels.get(i).setForeground(Color.WHITE);
+                    }
+                } else {
+                    panel.setBackground(new Color(238, 238, 238));
+                    for (int i=0; i<labels.size(); i++){
+                        labels.get(i).setForeground(Color.BLACK);
+                    }
+                }
             } else {
                 errorLabel.setText("Could not load weather data!");
                 tempLabel.setText("");
