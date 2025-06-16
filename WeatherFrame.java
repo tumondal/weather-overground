@@ -9,6 +9,7 @@ import java.awt.*;
 public class WeatherFrame extends JFrame {
 
     private JLabel tempLabel;
+    private JLabel weatherLabel;
     private JLabel windLabel;
     private JLabel timeLabel;
     private JLabel errorLabel;
@@ -16,8 +17,10 @@ public class WeatherFrame extends JFrame {
 
     public WeatherFrame() {
 
+        this.setResizable(false);
+
         setTitle("Weather Overground");
-        setSize(400, 300);
+        setSize(400, 350);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -28,7 +31,8 @@ public class WeatherFrame extends JFrame {
 
         JTextField cityInput = new JTextField(15);
         JButton searchButton = new JButton("Search");
-        tempLabel = new JLabel("Temperature: --°C");
+        tempLabel = new JLabel("--°C");
+        weatherLabel = new JLabel("");
         windLabel = new JLabel("Wind Speed: -- km/h");
         timeLabel = new JLabel("Time: --");
         errorLabel = new JLabel("");
@@ -40,8 +44,14 @@ public class WeatherFrame extends JFrame {
 
 
         cityInput.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cityInput.setHorizontalAlignment(JTextField.CENTER);
+        cityInput.setMaximumSize(new Dimension(350, 45));
+
+        tempLabel.setFont(new Font("Arial", Font.PLAIN, 40));
+
         searchButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         tempLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        weatherLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         windLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         timeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -59,6 +69,9 @@ public class WeatherFrame extends JFrame {
         panel.add(tempLabel);
         panel.add(Box.createRigidArea(new Dimension(0, 5)));
 
+        panel.add(weatherLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+
         panel.add(windLabel);
         panel.add(Box.createRigidArea(new Dimension(0, 5)));
 
@@ -73,6 +86,7 @@ public class WeatherFrame extends JFrame {
 
         searchButton.addActionListener(e -> {
             System.out.println("Button was clicked!");
+            System.out.println(cityInput.getSize());
             String city = cityInput.getText().trim();
             if (city.isEmpty()) {
                 errorLabel.setText("Please enter a city name!");
@@ -104,12 +118,14 @@ public class WeatherFrame extends JFrame {
 
             if (data != null) {
                 //Update GUI labels instead of just printing
-                tempLabel.setText("Temperature: " + data.current_weather.temperature + "°C");
+                tempLabel.setText(data.current_weather.temperature + "°C");
+                weatherLabel.setText(data.current_weather.convertWeatherCode());
                 windLabel.setText("Wind Speed: " + data.current_weather.windspeed + " km/h");
                 timeLabel.setText("Time: " + data.current_weather.time);
             } else {
                 errorLabel.setText("Could not load weather data!");
                 tempLabel.setText("");
+                weatherLabel.setText("");
                 windLabel.setText("");
                 timeLabel.setText("");
             }
