@@ -26,6 +26,7 @@ public class WeatherAPI {
 
             Gson gson = new Gson();
             WeatherData data = gson.fromJson(response.toString(), WeatherData.class);
+            data.setLatLon(lat, lon);
 
             System.out.println("Temperature: " + data.current_weather.temperature + "°C");
             System.out.println("Wind Speed: " + data.current_weather.windspeed + " km/h");

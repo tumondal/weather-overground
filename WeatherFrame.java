@@ -39,7 +39,7 @@ public class WeatherFrame extends JFrame {
         errorLabel.setForeground(Color.RED);
 
         JLabel titleLabel = new JLabel("Weather Overground");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
@@ -47,7 +47,9 @@ public class WeatherFrame extends JFrame {
         cityInput.setHorizontalAlignment(JTextField.CENTER);
         cityInput.setMaximumSize(new Dimension(350, 45));
 
-        tempLabel.setFont(new Font("Arial", Font.PLAIN, 40));
+        tempLabel.setFont(new Font("Arial", Font.BOLD, 40));
+
+        weatherLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
         searchButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         tempLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -70,7 +72,7 @@ public class WeatherFrame extends JFrame {
         panel.add(Box.createRigidArea(new Dimension(0, 5)));
 
         panel.add(weatherLabel);
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         panel.add(windLabel);
         panel.add(Box.createRigidArea(new Dimension(0, 5)));
@@ -86,7 +88,6 @@ public class WeatherFrame extends JFrame {
 
         searchButton.addActionListener(e -> {
             System.out.println("Button was clicked!");
-            System.out.println(cityInput.getSize());
             String city = cityInput.getText().trim();
             if (city.isEmpty()) {
                 errorLabel.setText("Please enter a city name!");
@@ -121,7 +122,7 @@ public class WeatherFrame extends JFrame {
                 tempLabel.setText(data.current_weather.temperature + "°C");
                 weatherLabel.setText(data.current_weather.convertWeatherCode());
                 windLabel.setText("Wind Speed: " + data.current_weather.windspeed + " km/h");
-                timeLabel.setText("Time: " + data.current_weather.time);
+                timeLabel.setText("Time: " + data.getTime());
             } else {
                 errorLabel.setText("Could not load weather data!");
                 tempLabel.setText("");

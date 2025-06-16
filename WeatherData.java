@@ -1,7 +1,33 @@
 package model;
 
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+
 public class WeatherData {
     public CurrentWeather current_weather;
+    private double lon;
+    private double lat;
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLatLon(double lat, double lon) {
+        this.lat = lat;
+        this.lon = lon;
+    }
+
+    public String getTime() {
+        String timeZoneID = TimezoneMapper.latLngToTimezoneString(lat, lon);
+        ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.of(timeZoneID));
+        System.out.println(zonedDateTime.format(DateTimeFormatter.ofPattern("HH:mm")));
+
+        return zonedDateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+    }
 
     public static class CurrentWeather{
         public String time;
