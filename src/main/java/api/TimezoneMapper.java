@@ -1,6 +1,7 @@
+package api;
+
 /** The provided code is written by Tim Cooper:   tim@edval.com.au
  This code is available under the MIT licence:  https://opensource.org/licenses/MIT  */
-package model;
 
 public class TimezoneMapper {
 

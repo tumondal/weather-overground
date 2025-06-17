@@ -2,6 +2,7 @@ package model;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import api.TimezoneMapper;
 
 public class WeatherData {
     public CurrentWeather current_weather;

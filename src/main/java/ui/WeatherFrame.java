@@ -39,10 +39,10 @@ public class WeatherFrame extends JFrame {
         errorLabel = new JLabel("");
         errorLabel.setForeground(Color.RED);
 
-        ImageIcon clearImage = new ImageIcon("images/clear.png");
-        ImageIcon cloudyImage = new ImageIcon("images/cloudy.png");
-        ImageIcon rainImage = new ImageIcon("images/rain.png");
-        ImageIcon snowImage = new ImageIcon("images/snow.png");
+        ImageIcon clearImage = new ImageIcon("src/main/java/images/clear.png");
+        ImageIcon cloudyImage = new ImageIcon("src/main/java/images/cloudy.png");
+        ImageIcon rainImage = new ImageIcon("src/main/java/images/rain.png");
+        ImageIcon snowImage = new ImageIcon("src/main/java/images/snow.png");
 
         img = new JLabel(clearImage);
 
