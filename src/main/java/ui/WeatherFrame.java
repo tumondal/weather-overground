@@ -9,13 +9,15 @@ import java.util.ArrayList;
 
 public class WeatherFrame extends JFrame {
 
-    private JLabel img;
-    private JLabel tempLabel;
-    private JLabel weatherLabel;
-    private JLabel windLabel;
-    private JLabel timeLabel;
-    private JLabel errorLabel;
-    ArrayList<JLabel> labels = new ArrayList<JLabel>();
+    private final JTextField cityInput;
+    private final JButton searchButton;
+    private final JLabel img;
+    private final JLabel tempLabel;
+    private final JLabel weatherLabel;
+    private final JLabel windLabel;
+    private final JLabel timeLabel;
+    private final JLabel errorLabel;
+    private final ArrayList<JComponent> labels = new ArrayList<JComponent>();
 
     public WeatherFrame() {
 
@@ -30,8 +32,8 @@ public class WeatherFrame extends JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15)); //padding
 
-        JTextField cityInput = new JTextField(15);
-        JButton searchButton = new JButton("Search");
+        cityInput = new JTextField(15);
+        searchButton = new JButton("Search");
         tempLabel = new JLabel("--°C");
         weatherLabel = new JLabel("");
         windLabel = new JLabel("Wind Speed: -- km/h");
@@ -47,18 +49,19 @@ public class WeatherFrame extends JFrame {
         img = new JLabel(clearImage);
 
         JLabel titleLabel = new JLabel("Weather Overground");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        titleLabel.setFont(new Font("Calibri", Font.BOLD, 25));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         cityInput.setAlignmentX(Component.CENTER_ALIGNMENT);
         cityInput.setHorizontalAlignment(JTextField.CENTER);
-        cityInput.setMaximumSize(new Dimension(350, 45));
+        cityInput.setMaximumSize(new Dimension(200, 26));
+        cityInput.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 
         img.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        tempLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        tempLabel.setFont(new Font("Calibri", Font.BOLD, 40));
 
-        weatherLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        weatherLabel.setFont(new Font("Calibri", Font.PLAIN, 30));
 
         searchButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         tempLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -73,11 +76,15 @@ public class WeatherFrame extends JFrame {
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
         labels.add(titleLabel);
 
-        panel.add(cityInput);
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        JPanel searchPanel = new JPanel();
+        searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.X_AXIS));
+        searchPanel.add(cityInput);
+        searchPanel.add(Box.createRigidArea((new Dimension(10, 0))));
+        searchPanel.add(searchButton);
 
-        panel.add(searchButton);
+        panel.add(searchPanel);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        labels.add(searchPanel);
 
         panel.add(img);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
@@ -87,7 +94,7 @@ public class WeatherFrame extends JFrame {
         labels.add(tempLabel);
 
         panel.add(weatherLabel);
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
         labels.add(weatherLabel);
 
         panel.add(windLabel);
@@ -152,11 +159,13 @@ public class WeatherFrame extends JFrame {
                     panel.setBackground(Color.DARK_GRAY);
                     for (int i=0; i<labels.size(); i++){
                         labels.get(i).setForeground(Color.WHITE);
+                        labels.get(i).setBackground(Color.DARK_GRAY);
                     }
                 } else {
                     panel.setBackground(new Color(238, 238, 238));
                     for (int i=0; i<labels.size(); i++){
                         labels.get(i).setForeground(Color.BLACK);
+                        labels.get(i).setBackground(new Color(238, 238, 238));
                     }
                 }
 
